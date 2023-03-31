@@ -1,0 +1,21 @@
+{
+  "name": "nostrboot",
+  "version": "1.0.0",
+  "description": "example of nostr boot in typescript",
+  "main": "main.js",
+  "scripts": {
+    "start": "node main.js",
+    "build": "tsc; cp package.json dist/; cp ./prod/** ./dist"
+  },
+  "author": "António Conselheiro",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/node-schedule": "^2.1.0"
+  },
+  "dependencies": {
+    "node-schedule": "^2.1.1",
+    "nostr-tools": "^1.8.1",
+    "ws": "^8.13.0"
+  }
+}
