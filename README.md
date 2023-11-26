@@ -20,5 +20,11 @@ https://github.com/nostr-protocol/nostr
 Nostr tools para JavaScript e TypeScript:
 https://github.com/nbd-wtf/nostr-tools
 
-## Autor
- - António Conselheiro, Canudos
+## Donate
+Lighting donate: <a href="lightning:antonioconselheiro@getalby.com">lightning:antonioconselheiro@getalby.com</a>
+
+![zap me](https://raw.githubusercontent.com/antonioconselheiro/antonioconselheiro/main/img/qrcode-wallet-lighting.png)
+
+Bitcoin onchain donate: <a href="bitcoin:bc1qrm99lmmpwk7zsh7njpgthw87yvdm38j2lzpq7q">bc1qrm99lmmpwk7zsh7njpgthw87yvdm38j2lzpq7q</a>
+
+![zap me](https://raw.githubusercontent.com/antonioconselheiro/antonioconselheiro/main/img/qrcode-wallet-bitcoin.png)
