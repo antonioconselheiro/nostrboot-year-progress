@@ -1,4 +1,4 @@
-"Pois nós nascemos ontem e não sabemos nada, nossos dias na terra não passam de uma sombra." Jó 8:9
+"Watch therefore: for you know not what hour your Lord does come." Matthew 24:42
 
 # Nostr boot example
 Me siga no nostr: `npub16kk2cms92lej97kjkp7wxwj63skdk50q3h6xj5e9e6eu9nt45ccst9f34v`
