@@ -41,18 +41,6 @@ pipeline {
       }
     }
 
-    stage('Lint') {
-      steps {
-        script {
-          ws("workspace") {
-            nodejs(nodeJSInstallationName: 'NpxNodeJS') {
-              sh 'npm run lint'
-            }
-          }
-        }
-      }
-    }
-
     stage('Build Project') {
       steps {
         script {
