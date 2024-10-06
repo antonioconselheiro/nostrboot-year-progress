@@ -22,8 +22,8 @@ pipeline {
       steps {
         script {
           ws("workspace") {
-            git branch: 'master',
-            url: 'https://github.com/antonioconselheiro/nostrboot-bitcoin-to-pokemon'
+            git branch: 'main',
+            url: 'https://github.com/antonioconselheiro/nostrboot-year-progress'
           }
         }
       }
@@ -70,7 +70,7 @@ pipeline {
         script {
           ws("workspace") {
             nodejs(nodeJSInstallationName: 'NpxNodeJS') {
-              docker.build('btc2poke:latest')
+              docker.build('yearprogress:latest')
             }
           }
         }
@@ -82,7 +82,7 @@ pipeline {
         script {
           ws("workspace") {
             docker.withRegistry('https://ra9.local:5000', 'ra9-registry-credentials') {
-              docker.image('btc2poke:latest').push()
+              docker.image('yearprogress:latest').push()
             }
           }
         }
