@@ -1,16 +1,14 @@
-import { Event, getEventHash, Kind, Relay, relayInit, signEvent, UnsignedEvent, validateEvent, verifySignature } from 'nostr-tools';
+import { exec } from 'child_process';
+import { Event, getEventHash, Kind, nip19, signEvent, UnsignedEvent, validateEvent, verifySignature } from 'nostr-tools';
 import { NostrUser } from './nostr-user';
 
 export class RelaysService {
 
-  private connectionReady: Promise<void>;
-  private relays: Relay[] = [];
+  constructor(
+    private relayUrlList: string[]
+  ) { }
 
-  constructor(private relayUrlList: string[]) {
-    this.connectionReady = this.connect();
-  }
-
-  publish(user: NostrUser, message: string): void {
+  async publish(user: NostrUser, message: string): Promise<void> {
     const event = this.createEvent(user, message);
     const ok = validateEvent(event);
     const veryOk = verifySignature(event);
@@ -21,47 +19,18 @@ export class RelaysService {
       return;
     }
 
-    this.connectionReady.finally(() => {
-      this.relays.forEach(relay => {
-        const subscription = relay.publish(event);
-        subscription.on('ok', () => {
-          console.log(`${relay.url} has accepted our event`);
-        });
+    const command = `echo '${JSON.stringify(event)}' | torsocks nak event ${this.relayUrlList.join(' ')}`;
+    console.log(`${command}`);
+    await new Promise<void>(resolve => exec(command, err => {
+      // eslint-disable-next-line no-unused-expressions
+      err && console.error(err);
+      resolve();
+    } ))
 
-        subscription.on('failed', (reason: unknown) => {
-          console.error(`failed to publish to ${relay.url}: ${reason}`);
-        });
-      });
-    });
+    const publishKey = nip19.noteEncode(event.id);
+    console.info(`published: https://primal.net/e/${publishKey}`);
   }
 
-  private connect(): Promise<void> {
-    const promises = this.relayUrlList.map(relayAddress => this.launchRelay(relayAddress));
-    this.connectionReady = Promise.all(promises).then(() => Promise.resolve());
-    return this.connectionReady;
-  }
-
-  private async launchRelay(relayAddress: string): Promise<void> {
-    console.info(`init relay: ${relayAddress}`);
-    const relay = relayInit(relayAddress);
-    relay.on('connect', () => {
-      console.log(`connected to ${relay.url}`)
-    });
-
-    relay.on('error', () => {
-      console.error(`failed to connect to ${relay.url}`)
-    });
-
-    try {
-      await relay.connect();
-    } catch {
-      //  if it does not connect I just ignore and continue
-      return Promise.resolve();
-    }
-
-    this.relays.push(relay);
-    return Promise.resolve();
-  }
 
   private createEvent(user: NostrUser, message: string): Event {
     const unsignedEvent: UnsignedEvent = {
