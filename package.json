@@ -1,11 +1,11 @@
 {
   "name": "nostrboot",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "example of nostr boot in typescript",
   "main": "main.js",
   "scripts": {
     "start": "node main.js",
-    "build": "tsc; cp package.json dist/; cp ./prod/** ./dist"
+    "build": "tsc; cp package.json Dockerfile docker-compose.yml ./dist"
   },
   "author": "António Conselheiro",
   "license": "MIT",
