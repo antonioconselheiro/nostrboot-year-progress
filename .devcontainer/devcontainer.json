@@ -1,10 +1,11 @@
 {
-    "name": "Year Progress Nostr boot",
+    "name": "Year Progress Dev",
     "dockerComposeFile": [
       "docker-compose.yml"
     ],
     "service": "yearprogress-dev",
     "workspaceFolder": "/yearprogress",
+    "postCreateCommand": "./.devcontainer/auth.sh",
     "customizations": {
       "vscode": {
         "extensions": [
